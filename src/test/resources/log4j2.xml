@@ -27,13 +27,12 @@
     </Appenders>
     
     <loggers>
-        <root level="all" additivity="true">
+        <root level="info" additivity="true">
         	<AppenderRef ref="console" />
         </root>
         
         <logger name="com.ezen.database" additivity="false">
-			<AppenderRef ref="console" level="all" />
-			<AppenderRef ref="logFile" level="all" />
+			<AppenderRef ref="console" level="info" />
 		</logger>
 				
 		<logger name="org.springframework" level="info" additivity="false" >
