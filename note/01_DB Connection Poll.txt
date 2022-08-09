@@ -1,0 +1,57 @@
+01_DB Connection Poll.txt
+
+# 커넥션 풀 (DBCP, Database Connection Pool)
+
+ - 필요할때 마다 DB와의 새로운 연결을 만드는 것이 아니라
+   미리 만들어 놓은 연결을 사용하여 새로운 연결을 계속 생성하는 자원의 낭비를 없애는 방법
+ 
+ - 만들어 놓은 DB 연결 객체즐을 저장해놓은 곳을 Pool이라고 한다.
+ 
+ - 매번 데이터베이스에 새로운 연결을 맺는 것은 속도가 느리기 때문에
+   커넥션 풀에서 이미 만들어진 연결을 꺼내 사용하면 쿼리문의 처리 속도가 매우 빨라진다.
+   
+ - 웹 서버가 실행될 때 연결을 미리 설정한만큼 생성해 두는 방식을 사용한다.
+ 
+# 유명 커넥션 풀 라이브러리
+
+ - Apachi Commons DBCP
+ - Hikari CP : https://github.com/brettwooldridge/HikariCP
+ 
+ 	pom.xml :
+ 
+	 	<dependency>
+		   <groupId>com.zaxxer</groupId>
+		   <artifactId>HikariCP</artifactId>
+		   <version>4.0.3</version>
+		</dependency>
+	
+	참고 소스 : 
+	
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/simpsons");
+		config.setUsername("bart");
+		config.setPassword("51mp50n");
+		config.addDataSourceProperty("cachePrepStmts", "true");
+		config.addDataSourceProperty("prepStmtCacheSize", "250");
+		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+		
+		HikariDataSource ds = new HikariDataSource(config);
+	
+	root-context.xml : 
+	
+
+
+# HikariCP root-context
+
+ 	<bean id="config" calss="com.zaxxer.hikari.HikariConfig">
+		<property name="DriverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="JdbcUrl" value="jdbc:oracle:thin:@3.39.84.37:1521:XE" />
+		<property name="Username" value="hr" />
+		<property name="Password" value="hodo8243" />
+	</bean>
+	
+	<bean id="ds" calss="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg ref="config" />
+	</bean>
+	
+ 
