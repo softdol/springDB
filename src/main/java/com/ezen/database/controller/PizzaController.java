@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ezen.database.dto.Pizza;
 import com.ezen.database.mapper.PizzaMapper;
 
+
 import lombok.extern.log4j.Log4j2;
 
 @RequestMapping("/pizza")
@@ -19,6 +20,9 @@ public class PizzaController {
 	
 	@Autowired
 	PizzaMapper pizzaMapper;
+	
+//	@Autowired
+//	PizzaService pizzaService;
 	
 	@GetMapping({"/",""})
 	public String index() {
@@ -55,9 +59,40 @@ public class PizzaController {
 	}
 	
 	@GetMapping("/info")
-	public void view(Integer id) {
-		log.info(id);
+	public String view(Integer id, Model model) {
+		if(id == 0) {
+			return "redirect:/pizza/list";
+		}
 		
+		try {			
+			Pizza pizza = pizzaMapper.findById(id);			
+			model.addAttribute("pizza", pizza);			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/pizza/list";
+		}
+		
+		return "pizza/info";
+	}
+	
+	@GetMapping("/del")
+	public String del(Integer id) {		
+		if(!pizzaMapper.delPizza(id)) {
+			log.info("삭제 실패 : " + id);
+		}		
+		return "redirect:/pizza/list";
+	}
+	
+	@GetMapping("/mod")
+	public void mod(Integer id, Model model) {
+		Pizza pizza = pizzaMapper.findById(id);		
+		model.addAttribute("pizza", pizza);
+	}
+	
+	@PostMapping("/mod")
+	public String upt(Pizza pizza) {
+		pizzaMapper.uptPizza(pizza);
+		return "redirect:/pizza/list";
 	}
 	
 }
