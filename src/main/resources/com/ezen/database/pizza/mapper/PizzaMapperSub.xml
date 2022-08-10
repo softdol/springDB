@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.database.pizza.mapper.PizzaMapperSub">
+	<select id="getAll" resultType="com.ezen.database.dto.Pizza">
+    	SELECT * FROM pizza
+	</select>
+	
+	<insert id="add">
+    	Inert into pizza(id,name, price, calories)
+    	VALUES (pizza_id_seq.nextval, #{name}, #{price}, #{calories})
+	</insert>
+	
+	<select id="getIdByName" resultType="int">
+    	SELECT id FROM pizza WHERE name = #{name}
+	</select>
+	
+	<select id="getPizza" resultType="com.ezen.database.dto.Pizza">
+    	SELECT * FROM pizza WHERE id = #{id}
+	</select>
+	
+	<update id="uptPizza">
+    	UPDATE UPDATE pizza SET name = #{name}, price = #{price}, calories = #{.calories}
+		WHERE id = #{id}
+	</update>
+	
+	
+</mapper>
+
+
+
+
