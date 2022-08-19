@@ -24,7 +24,13 @@ public class MapperXmlTest {
 	}
 	
 	@Test
+	@Ignore
 	public void test2() {
 		log.info(mapper.getListByDept(50));
+	}
+	
+	@Test
+	public void test3() {
+		log.info(mapper.getListBetDept(30, 80));
 	}
 }

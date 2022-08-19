@@ -19,7 +19,7 @@ public class HikariTest {
 		//config.setDriverClassName("oracle.jdbc.OracleDriver");
 		config.setJdbcUrl("jdbc:oracle:thin:@3.39.84.37:1521:XE");
 		config.setUsername("hr");
-		config.setPassword("hodo8243");
+		config.setPassword("12345678");
 		config.addDataSourceProperty("cachePrepStmts", "true");
 		config.addDataSourceProperty("prepStmtCacheSize", "250");
 		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

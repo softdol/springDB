@@ -54,6 +54,3 @@ function fnConfirm(val, url){
 
 
 
-
-
-

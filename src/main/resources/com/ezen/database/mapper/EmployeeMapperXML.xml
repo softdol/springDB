@@ -9,4 +9,11 @@
 	<select id="getListByDept" resultType="com.ezen.database.dto.Employee">
     	SELECT * FROM employees WHERE DEPARTMENT_ID = #{department_id}
 	</select>
+	<select id="getListBetDept" resultType="com.ezen.database.dto.Employee">
+		SELECT * FROM employees
+		<![CDATA[
+			WHERE DEPARTMENT_ID >= #{lowerD} AND DEPARTMENT_ID  <= #{upperD}
+		]]>
+		ORDER BY DEPARTMENT_ID DESC
+	</select>
 </mapper>

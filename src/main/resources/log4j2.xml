@@ -7,6 +7,10 @@
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd hh:mm:ss} :: %5p [%c] %m%n"/>
         </Console>
+	        
+	    <File name="log4jdbc_file" fileName="log4jdbc.out">
+	      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %level - %m%n%ex%n"/>
+	    </File>
         
         <!-- 파일  -->
         <RollingFile name ="logFile">
@@ -27,16 +31,17 @@
     </Appenders>
     
     <loggers>
-        <root level="info" additivity="true">
+        <root level="info">
         	<AppenderRef ref="console" />
         </root>
         
-        <logger name="com.ezen.database" additivity="false">
-			<AppenderRef ref="console" level="info" />			
+        <logger name="log4jdbc.log4j2" level="info" additivity="false">
+		  <MarkerFilter marker="LOG4JDBC_CONNECTION" onMatch="DENY" onMismatch="NEUTRAL"/>
+		  <appender-ref ref="Console"/>
 		</logger>
-				
-		<logger name="org.springframework" level="info" additivity="false" >
-			<AppenderRef ref="console" />
+	    
+	    <logger name="log4jdbc.log4j2" level="info" additivity="false">
+	      <appender-ref ref="log4jdbc_file"/>
 	    </logger>
         	
     </loggers>
